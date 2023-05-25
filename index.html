@@ -1,0 +1,56 @@
+<html>
+<head>
+
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="500"></canvas>
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "#eee";
+    ctx.fillRect(0, 0, 500, 500);
+    ctx.globalAlpha=1;
+    let rectangles = [
+        [200, 200, 400, 400],
+        [200, 200, 240, 240],
+        [360, 360, 440, 440],
+        [160, 260, 480, 280]
+    ];
+
+    rectangles.forEach(rect => {
+        let x1 = rect[0];
+        let y1 = rect[1];
+        let x2 = rect[2];
+        let y2 = rect[3];
+
+        ctx.strokeStyle="red";
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.moveTo(x1,0);
+        ctx.lineTo(x1,canvas.height);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(x2,0);
+        ctx.lineTo(x2,canvas.height);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0,y1);
+        ctx.lineTo(canvas.width,y1);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0,y2);
+        ctx.lineTo(canvas.width,y2);
+        ctx.stroke();
+        // 绘制矩形
+        ctx.strokeStyle="black";
+        ctx.lineWidth=3;
+        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+
+    });
+</script>
+</body>
+</html>
