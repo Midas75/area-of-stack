@@ -92,4 +92,35 @@ public class AreaOfStack {
     public static List<Integer> processBatch(Collection<int[]> annotations) {
         return getTotalSizes(annotations,getDiscretion(annotations));
     }
+    public static List<Integer> processBatchPlain(Collection<int[]> annotations){
+        int maxX=0,maxY=0,minX=Integer.MAX_VALUE,minY=Integer.MAX_VALUE;
+        for(int[] annotation:annotations){
+
+            minX=Math.min(minX,annotation[0]);
+            minY=Math.min(minY,annotation[1]);
+            maxX=Math.max(maxX,annotation[2]);
+            maxY=Math.max(maxY,annotation[3]);
+        }
+        int[][] blocks=new int[maxX-minX+1][maxY-minY+1];
+        List<Integer> res=new ArrayList<>(annotations.size());
+        for(int[] annotation:annotations){
+            for(int x=annotation[0]+1; x<=annotation[2]; x++){
+                for(int y=annotation[1]+1; y<=annotation[3]; y++){
+                    blocks[x-minX][y-minY]+=1;
+                }
+            }
+        }
+        for(int[] annotation:annotations){
+            int area=0;
+            for(int x=annotation[0]+1; x<=annotation[2]; x++){
+                for(int y=annotation[1]+1; y<=annotation[3]; y++){
+                    if(blocks[x-minX][y-minY]>1){
+                       area+=1;
+                    }
+                }
+            }
+            res.add(area);
+        }
+        return res;
+    }
 }
